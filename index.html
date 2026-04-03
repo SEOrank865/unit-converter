@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Universal Conversion Tool | Convert Length, Weight, Temperature & More</title>
+
+<meta name="description" content="Free universal conversion calculator. Convert miles, kilometers, pounds, kilograms, Celsius, Fahrenheit, gallons, liters and more.">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.converter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 1.8rem;
+}
+
+.converter {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+input, select {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    background: white;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+button {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ad {
+    background: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    padding: 40px;
+    margin: 30px 0;
+    font-size: 14px;
+    color: #7f8c8d;
+    border: 2px dashed #bdc3c7;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.ad-top {
+    background: rgba(255, 255, 255, 0.95);
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.ad-sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    width: 300px;
+    height: 250px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+footer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: #2c3e50;
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+    .converter-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .input-row {
+        flex-direction: column;
+    }
+    
+    input, select {
+        min-width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🔄 Universal Unit Calculator</h1>
+<p>Convert between hundreds of units instantly - Length, Weight, Temperature, Volume, Area, Speed & More</p>
+</header>
+
+<div class="container">
+
+<div class="ad ad-top">
+📺 TOP BANNER AD SPACE (728x90)
+</div>
+
+<div class="converter-grid">
+
+<div class="section">
+<h2><span class="icon">📏</span> Length Converter</h2>
+<div class="converter">
+<div class="input-row">
+<input id="lengthInput" type="number" placeholder="Enter value" step="any">
+<select id="lengthFrom">
+<option value="km">Kilometers</option>
+<option value="miles">Miles</option>
+<option value="meters">Meters</option>
+<option value="feet">Feet</option>
+<option value="inches">Inches</option>
+<option value="cm">Centimeters</option>
+<option value="mm">Millimeters</option>
+<option value="yards">Yards</option>
+<option value="nm">Nautical Miles</option>
+</select>
+<select id="lengthTo">
+<option value="miles">Miles</option>
+<option value="km">Kilometers</option>
+<option value="meters">Meters</option>
+<option value="feet">Feet</option>
+<option value="inches">Inches</option>
+<option value="cm">Centimeters</option>
+<option value="mm">Millimeters</option>
+<option value="yards">Yards</option>
+<option value="nm">Nautical Miles</option>
+</select>
+</div>
+<button onclick="convertLength()">Convert</button>
+</div>
+<div class="result" id="lengthResult">Enter a value to convert</div>
+</div>
+
+<div class="section">
+<h2><span class="icon">⚖️</span> Weight Converter</h2>
+<div class="converter">
+<div class="input-row">
+<input id="weightInput" type="number" placeholder="Enter value" step="any">
+<select id="weightFrom">
+<option value="kg">Kilograms</option>
+<option value="lb">Pounds</option>
+<option value="g">Grams</option>
+<option value="oz">Ounces</option>
+<option value="stone">Stone</option>
+<option value="ton">Tons (metric)</option>
+<option value="uston">Tons (US)</option>
+<option value="mg">Milligrams</option>
+</select>
+<select id="weightTo">
+<option value="lb">Pounds</option>
+<option value="kg">Kilograms</option>
+<option value="g">Grams</option>
+<option value="oz">Ounces</option>
+<option value="stone">Stone</option>
+<option value="ton">Tons (metric)</option>
+<option value="uston">Tons (US)</option>
+<option value="mg">Milligrams</option>
+</select>
+</div>
+<button onclick="convertWeight()">Convert</button>
+</div>
+<div class="result" id="weightResult">Enter a value to convert</div>
+</div>
+
+<div class="section">
+<h2><span class="icon">🌡️</span> Temperature Converter</h2>
+<div class="converter">
+<div class="input-row">
+<input id="tempInput" type="number" placeholder="Enter value" step="any">
+<select id="tempFrom">
+<option value="C">Celsius</option>
+<option value="F">Fahrenheit</option>
+<option value="K">Kelvin</option>
+<option value="R">Rankine</option>
+</select>
+<select id="tempTo">
+<option value="F">Fahrenheit</option>
+<option value="C">Celsius</option>
+<option value="K">Kelvin</option>
+<option value="R">Rankine</option>
+</select>
+</div>
+<button onclick="convertTemp()">Convert</button>
+</div>
+<div class="result" id="tempResult">Enter a value to convert</div>
+</div>
+
+<div class="section">
+<h2><span class="icon">💧</span> Volume Converter</h2>
+<div class="converter">
+<div class="input-row">
+<input id="volumeInput" type="number" placeholder="Enter value" step="any">
+<select id="volumeFrom">
+<option value="liters">Liters</option>
+<option value="gallons">Gallons (US)</option>
+<option value="gallonsuk">Gallons (UK)</option>
+<option value="ml">Milliliters</option>
+<option value="cups">Cups</option>
+<option value="pints">Pints (US)</option>
+<option value="quarts">Quarts (US)</option>
+<option value="floz">Fluid Ounces (US)</option>
+</select>
+<select id="volumeTo">
+<option value="gallons">Gallons (US)</option>
+<option value="liters">Liters</option>
+<option value="gallonsuk">Gallons (UK)</option>
+<option value="ml">Milliliters</option>
+<option value="cups">Cups</option>
+<option value="pints">Pints (US)</option>
+<option value="quarts">Quarts (US)</option>
+<option value="floz">Fluid Ounces (US)</option>
+</select>
+</div>
+<button onclick="convertVolume()">Convert</button>
+</div>
+<div class="result" id="volumeResult">Enter a value to convert</div>
+</div>
+
+<div class="section">
+<h2><span class="icon">📐</span> Area Converter</h2>
+<div class="converter">
+<div class="input-row">
+<input id="areaInput" type="number" placeholder="Enter value" step="any">
+<select id="areaFrom">
+<option value="sqm">Square Meters</option>
+<option value="sqft">Square Feet</option>
+<option value="sqkm">Square Kilometers</option>
+<option value="sqmi">Square Miles</option>
+<option value="hectares">Hectares</option>
+<option value="acres">Acres</option>
+<option value="sqin">Square Inches</option>
+<option value="sqyd">Square Yards</option>
+</select>
+<select id="areaTo">
+<option value="sqft">Square Feet</option>
+<option value="sqm">Square Meters</option>
+<option value="sqkm">Square Kilometers</option>
+<option value="sqmi">Square Miles</option>
+<option value="hectares">Hectares</option>
+<option value="acres">Acres</option>
+<option value="sqin">Square Inches</option>
+<option value="sqyd">Square Yards</option>
+</select>
+</div>
+<button onclick="convertArea()">Convert</button>
+</div>
+<div class="result" id="areaResult">Enter a value to convert</div>
+</div>
+
+<div class="section">
+<h2><span class="icon">🚗</span> Speed Converter</h2>
+<div class="converter">
+<div class="input-row">
+<input id="speedInput" type="number" placeholder="Enter value" step="any">
+<select id="speedFrom">
+<option value="kmh">km/h</option>
+<option value="mph">mph</option>
+<option value="ms">m/s</option>
+<option value="knots">Knots</option>
+<option value="mach">Mach</option>
+</select>
+<select id="speedTo">
+<option value="mph">mph</option>
+<option value="kmh">km/h</option>
+<option value="ms">m/s</option>
+<option value="knots">Knots</option>
+<option value="mach">Mach</option>
+</select>
+</div>
+<button onclick="convertSpeed()">Convert</button>
+</div>
+<div class="result" id="speedResult">Enter a value to convert</div>
+</div>
+
+<div class="section">
+<h2><span class="icon">⏱️</span> Time Converter</h2>
+<div class="converter">
+<div class="input-row">
+<input id="timeInput" type="number" placeholder="Enter value" step="any">
+<select id="timeFrom">
+<option value="seconds">Seconds</option>
+<option value="minutes">Minutes</option>
+<option value="hours">Hours</option>
+<option value="days">Days</option>
+<option value="weeks">Weeks</option>
+<option value="months">Months</option>
+<option value="years">Years</option>
+</select>
+<select id="timeTo">
+<option value="minutes">Minutes</option>
+<option value="seconds">Seconds</option>
+<option value="hours">Hours</option>
+<option value="days">Days</option>
+<option value="weeks">Weeks</option>
+<option value="months">Months</option>
+<option value="years">Years</option>
+</select>
+</div>
+<button onclick="convertTime()">Convert</button>
+</div>
+<div class="result" id="timeResult">Enter a value to convert</div>
+</div>
+
+<div class="section">
+<h2><span class="icon">💰</span> Currency Converter</h2>
+<div class="converter">
+<div class="input-row">
+<input id="currencyInput" type="number" placeholder="Enter value" step="any">
+<select id="currencyFrom">
+<option value="USD">USD ($)</option>
+<option value="EUR">EUR (€)</option>
+<option value="GBP">GBP (£)</option>
+<option value="JPY">JPY (¥)</option>
+<option value="CAD">CAD ($)</option>
+<option value="AUD">AUD ($)</option>
+<option value="CHF">CHF (Fr)</option>
+<option value="CNY">CNY (¥)</option>
+</select>
+<select id="currencyTo">
+<option value="EUR">EUR (€)</option>
+<option value="USD">USD ($)</option>
+<option value="GBP">GBP (£)</option>
+<option value="JPY">JPY (¥)</option>
+<option value="CAD">CAD ($)</option>
+<option value="AUD">AUD ($)</option>
+<option value="CHF">CHF (Fr)</option>
+<option value="CNY">CNY (¥)</option>
+</select>
+</div>
+<button onclick="convertCurrency()">Convert</button>
+</div>
+<div class="result" id="currencyResult">Enter a value to convert (rates are approximate)</div>
+</div>
+
+</div>
+
+<div class="ad ad-sidebar">
+📱 RECTANGLE AD SPACE (300x250)
+</div>
+
+<div class="ad">
+📺 BOTTOM BANNER AD SPACE (728x90)
+</div>
+
+</div>
+
+<footer>
+
+<p>© 2026 Universal Conversion Tool</p>
+<p>Free unit conversions for everyday calculations.</p>
+
+</footer>
+
+<script>
+
+function formatResult(value, fromUnit, toUnit) {
+    if (isNaN(value)) return "Invalid input";
+    return `${value.toFixed(6)} ${toUnit}`;
+}
+
+function convertLength() {
+    const val = parseFloat(document.getElementById("lengthInput").value);
+    if (isNaN(val)) {
+        document.getElementById("lengthResult").textContent = "Please enter a valid number";
+        return;
+    }
+    
+    const from = document.getElementById("lengthFrom").value;
+    const to = document.getElementById("lengthTo").value;
+    
+    const toMeters = {
+        km: 1000, miles: 1609.344, meters: 1, feet: 0.3048,
+        inches: 0.0254, cm: 0.01, mm: 0.001, yards: 0.9144, nm: 1852
+    };
+    
+    const fromMeters = {
+        km: 1/1000, miles: 1/1609.344, meters: 1, feet: 1/0.3048,
+        inches: 1/0.0254, cm: 1/0.01, mm: 1/0.001, yards: 1/0.9144, nm: 1/1852
+    };
+    
+    const result = val * toMeters[from] * fromMeters[to];
+    document.getElementById("lengthResult").textContent = formatResult(result, from, to);
+}
+
+function convertWeight() {
+    const val = parseFloat(document.getElementById("weightInput").value);
+    if (isNaN(val)) {
+        document.getElementById("weightResult").textContent = "Please enter a valid number";
+        return;
+    }
+    
+    const from = document.getElementById("weightFrom").value;
+    const to = document.getElementById("weightTo").value;
+    
+    const toKg = {
+        kg: 1, lb: 0.45359237, g: 0.001, oz: 0.0283495,
+        stone: 6.35029, ton: 1000, uston: 907.185, mg: 0.000001
+    };
+    
+    const fromKg = {
+        kg: 1, lb: 2.20462, g: 1000, oz: 35.274,
+        stone: 0.157473, ton: 0.001, uston: 0.00110231, mg: 1000000
+    };
+    
+    const result = val * toKg[from] * fromKg[to];
+    document.getElementById("weightResult").textContent = formatResult(result, from, to);
+}
+
+function convertTemp() {
+    const val = parseFloat(document.getElementById("tempInput").value);
+    if (isNaN(val)) {
+        document.getElementById("tempResult").textContent = "Please enter a valid number";
+        return;
+    }
+    
+    const from = document.getElementById("tempFrom").value;
+    const to = document.getElementById("tempTo").value;
+    
+    let celsius;
+    if (from === "C") celsius = val;
+    else if (from === "F") celsius = (val - 32) * 5/9;
+    else if (from === "K") celsius = val - 273.15;
+    else if (from === "R") celsius = (val - 491.67) * 5/9;
+    
+    let result;
+    if (to === "C") result = celsius;
+    else if (to === "F") result = (celsius * 9/5) + 32;
+    else if (to === "K") result = celsius + 273.15;
+    else if (to === "R") result = (celsius + 273.15) * 9/5;
+    
+    document.getElementById("tempResult").textContent = formatResult(result, from, to);
+}
+
+function convertVolume() {
+    const val = parseFloat(document.getElementById("volumeInput").value);
+    if (isNaN(val)) {
+        document.getElementById("volumeResult").textContent = "Please enter a valid number";
+        return;
+    }
+    
+    const from = document.getElementById("volumeFrom").value;
+    const to = document.getElementById("volumeTo").value;
+    
+    const toLiters = {
+        liters: 1, gallons: 3.78541, gallonsuk: 4.54609, ml: 0.001,
+        cups: 0.236588, pints: 0.473176, quarts: 0.946353, floz: 0.0295735
+    };
+    
+    const fromLiters = {
+        liters: 1, gallons: 1/3.78541, gallonsuk: 1/4.54609, ml: 1000,
+        cups: 1/0.236588, pints: 1/0.473176, quarts: 1/0.946353, floz: 1/0.0295735
+    };
+    
+    const result = val * toLiters[from] * fromLiters[to];
+    document.getElementById("volumeResult").textContent = formatResult(result, from, to);
+}
+
+function convertArea() {
+    const val = parseFloat(document.getElementById("areaInput").value);
+    if (isNaN(val)) {
+        document.getElementById("areaResult").textContent = "Please enter a valid number";
+        return;
+    }
+    
+    const from = document.getElementById("areaFrom").value;
+    const to = document.getElementById("areaTo").value;
+    
+    const toSqMeters = {
+        sqm: 1, sqft: 0.092903, sqkm: 1000000, sqmi: 2589988.11,
+        hectares: 10000, acres: 4046.86, sqin: 0.00064516, sqyd: 0.836127
+    };
+    
+    const fromSqMeters = {
+        sqm: 1, sqft: 10.7639, sqkm: 1/1000000, sqmi: 1/2589988.11,
+        hectares: 1/10000, acres: 1/4046.86, sqin: 1/0.00064516, sqyd: 1/0.836127
+    };
+    
+    const result = val * toSqMeters[from] * fromSqMeters[to];
+    document.getElementById("areaResult").textContent = formatResult(result, from, to);
+}
+
+function convertSpeed() {
+    const val = parseFloat(document.getElementById("speedInput").value);
+    if (isNaN(val)) {
+        document.getElementById("speedResult").textContent = "Please enter a valid number";
+        return;
+    }
+    
+    const from = document.getElementById("speedFrom").value;
+    const to = document.getElementById("speedTo").value;
+    
+    const toMs = {
+        kmh: 0.277778, mph: 0.44704, ms: 1, knots: 0.514444, mach: 343
+    };
+    
+    const fromMs = {
+        kmh: 3.6, mph: 2.23694, ms: 1, knots: 1.94384, mach: 1/343
+    };
+    
+    const result = val * toMs[from] * fromMs[to];
+    document.getElementById("speedResult").textContent = formatResult(result, from, to);
+}
+
+function convertTime() {
+    const val = parseFloat(document.getElementById("timeInput").value);
+    if (isNaN(val)) {
+        document.getElementById("timeResult").textContent = "Please enter a valid number";
+        return;
+    }
+    
+    const from = document.getElementById("timeFrom").value;
+    const to = document.getElementById("timeTo").value;
+    
+    const toSeconds = {
+        seconds: 1, minutes: 60, hours: 3600, days: 86400,
+        weeks: 604800, months: 2629746, years: 31556952
+    };
+    
+    const fromSeconds = {
+        seconds: 1, minutes: 1/60, hours: 1/3600, days: 1/86400,
+        weeks: 1/604800, months: 1/2629746, years: 1/31556952
+    };
+    
+    const result = val * toSeconds[from] * fromSeconds[to];
+    document.getElementById("timeResult").textContent = formatResult(result, from, to);
+}
+
+function convertCurrency() {
+    const val = parseFloat(document.getElementById("currencyInput").value);
+    if (isNaN(val)) {
+        document.getElementById("currencyResult").textContent = "Please enter a valid number";
+        return;
+    }
+    
+    const from = document.getElementById("currencyFrom").value;
+    const to = document.getElementById("currencyTo").value;
+    
+    const toUSD = {
+        USD: 1, EUR: 1.08, GBP: 1.27, JPY: 0.0067,
+        CAD: 0.73, AUD: 0.66, CHF: 1.11, CNY: 0.14
+    };
+    
+    const fromUSD = {
+        USD: 1, EUR: 0.93, GBP: 0.79, JPY: 149.5,
+        CAD: 1.37, AUD: 1.52, CHF: 0.90, CNY: 7.24
+    };
+    
+    const result = val * toUSD[from] * fromUSD[to];
+    document.getElementById("currencyResult").textContent = `${result.toFixed(2)} ${to} (approximate)`;
+}
+
+// Add real-time conversion on input
+document.addEventListener('DOMContentLoaded', function() {
+    const inputs = ['lengthInput', 'weightInput', 'tempInput', 'volumeInput', 'areaInput', 'speedInput', 'timeInput', 'currencyInput'];
+    const selects = ['lengthFrom', 'lengthTo', 'weightFrom', 'weightTo', 'tempFrom', 'tempTo', 
+                    'volumeFrom', 'volumeTo', 'areaFrom', 'areaTo', 'speedFrom', 'speedTo',
+                    'timeFrom', 'timeTo', 'currencyFrom', 'currencyTo'];
+    
+    inputs.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener('input', () => {
+                const converterName = id.replace('Input', '');
+                const converterFunction = window[`convert${converterName.charAt(0).toUpperCase() + converterName.slice(1)}`];
+                if (converterFunction) converterFunction();
+            });
+        }
+    });
+    
+    selects.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener('change', () => {
+                const converterType = id.replace(/(From|To)$/, '');
+                const converterFunction = window[`convert${converterType.charAt(0).toUpperCase() + converterType.slice(1)}`];
+                if (converterFunction) converterFunction();
+            });
+        }
+    });
+});
+
+</script>
+
+</body>
+</html>
